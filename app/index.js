@@ -8,8 +8,7 @@
  const app = express();
  const UsuariosController = require('../src/controllers/UsuariosController');
  const bodyParser = require('body-parser');
- const HttpConstants = require('../src/helpers/constants/HttpConstants');
- const ErrorConstants = require('../src/helpers/constants/ErrorConstants');
+
 
  app.use(express.urlencoded({ extended: true }))
  app.use(bodyParser.json());

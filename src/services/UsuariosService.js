@@ -1,23 +1,8 @@
-const AwsUtils = require('../helpers/utils/AwsUtils');
+const {AwsUtils} = require('lib-commons/helpers');
 
 class UsuariosService {
+
     static async obtenerUsuario(event) {
-        const resultado = {
-            nombres: "abccc",
-            apellidos: "abcde"
-        };
-        try {                   
-                 
-            return new Promise(resolve => {
-                resolve(resultado);
-            });
-           
-        } catch (error) {
-            
-        }
-        
-    }
-    static async obtenerUsuario2(event) {
         const payload = AwsUtils.getPayloadRequest(event);
         const respuesta = {
             name: "AAAAA",
