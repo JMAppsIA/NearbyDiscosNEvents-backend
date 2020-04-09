@@ -5,7 +5,8 @@
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/index.js"
+    "start": "node app/index.js",
+    "start-dev": "nodenv -f app/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,11 @@
     "aws-sdk": "^2.655.0",
     "body-parser": "^1.19.0",
     "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lib-commons": "git+https://github.com/JMAppsIA/lib-commons.git",
     "mysql": "^2.18.1",
+    "node-env-run": "^3.0.2",
     "util": "^0.12.2"
   }
 }

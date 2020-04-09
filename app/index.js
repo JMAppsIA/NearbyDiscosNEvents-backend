@@ -4,11 +4,12 @@
  * Update: 07/04/2020
  */
 
+ require('dotenv').config();
  const express = require('express');
  const app = express();
  const UsuariosController = require('../src/controllers/UsuariosController');
  const bodyParser = require('body-parser');
-
+ 
 
  app.use(express.urlencoded({ extended: true }))
  app.use(bodyParser.json());
@@ -26,6 +27,24 @@
   
  });
 
+ app.post("/usuario/crear", async (request, response, next) => {
+
+    
+   const createuser = await UsuariosController.crearUsuario(request);
+   response.setHeader('Content-Type', 'application/json');     
+   response.end(JSON.stringify(createuser));    
+ 
+});
+
+app.post("/usuario/actualizar", async (request, response, next) => {
+
+    
+   const createuser = await UsuariosController.actualizarUsuario(request);
+   response.setHeader('Content-Type', 'application/json');     
+   response.end(JSON.stringify(createuser));    
+ 
+});
+
  app.put("/", (request, response, next) => {
     response.end("GET REQUEST");
  });
@@ -38,5 +57,6 @@
   * START WEBSERVICE
   */
 app.listen(3000, () => {
-    console.log("JAppsAI Web Service running on port 3000");    
+    console.log("JAppsAI Web Service running on port 3000");
+     
 });

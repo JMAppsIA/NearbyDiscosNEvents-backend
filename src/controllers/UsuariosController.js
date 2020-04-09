@@ -15,6 +15,28 @@ class UsuariosController {
           return AwsUtils.buildErrorResponse(event, error);
         }
       }
+    
+    static async crearUsuario(event) {
+        try {
+          await AppValidator.validateRequest(event, UsuariosValidator.validateCreateUser());
+          const result = await UsuariosService.crearUsuario(event);
+          return AwsUtils.buildResponse(event, result);
+        } catch (error) {
+          LoggerUtils.error(error);
+          return AwsUtils.buildErrorResponse(event, error);
+        }
+    }
+
+    static async actualizarUsuario(event) {
+      try {
+        await AppValidator.validateRequest(event, UsuariosValidator.validateUpdateUser());
+        const result = await UsuariosService.actualizarUsuario(event);
+        return AwsUtils.buildResponse(event, result);
+      } catch (error) {
+        LoggerUtils.error(error);
+        return AwsUtils.buildErrorResponse(event, error);
+      }
+  }    
 
 }
 
