@@ -22,7 +22,7 @@ class UsuarioDb {
             genero_per: payload.genre,
         };
         const target = {
-            message: "Usuario registrado correctamente!",
+            message: null,
         }
         try {
             const query = QueryConstants.CREAR_USUARIO;
@@ -30,10 +30,16 @@ class UsuarioDb {
             const result = await DBCloudConnection.executeSQLStatement({
               connection: connection,
               statement: query,
-              bindParams: source,
-              target: target,
-            });
-            return result;
+              bindParams: source
+            });            
+            
+            if(result.affectedRows == 1) {
+                target.message = "Se creo el usuario";                                 
+            } else {
+                target.message = "No se pudo crear el usuario";
+            }
+            
+            return target;
           } catch (error) {
             throw new BusinessError({
               code: error.code,
@@ -54,6 +60,7 @@ class UsuarioDb {
             numeroDocumento: payload.numeroDocumento,
         };
         const target = {
+            id_per: null,
             pri_nomb: null,
         }
         try {
@@ -64,7 +71,8 @@ class UsuarioDb {
               statement: query,
               bindParams: source,
               target: target,
-            });
+            });            
+            
             return result;
           } catch (error) {
             throw new BusinessError({
@@ -128,7 +136,7 @@ class UsuarioDb {
           numeroDocumento: payload.numeroDocumento,            
         };
         const target = {
-            message: "Usuario eliminado correctamente!",
+            message: null,
         }
         try {
             const query = QueryConstants.ELIMINAR_USUARIO;
@@ -136,13 +144,17 @@ class UsuarioDb {
             const result = await DBCloudConnection.executeSQLStatement({
               connection: connection,
               statement: query,
-              bindParams: source,
-              target: target,
+              bindParams: source,              
+              // target: target,
             });
 
-            console.log("result -> ", result);
+            if(result.affectedRows >= 1) {
+                target.message = "Se elimino el usuario";                                 
+            } else {
+                target.message = `Usuario con documento ${payload.numeroDocumento} no existe.`;
+            }
             
-            return result;
+            return target;
           } catch (error) {
             throw new BusinessError({
               code: error.code,

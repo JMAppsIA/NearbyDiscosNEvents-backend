@@ -8,7 +8,6 @@ class UsuariosService {
         const payload = AwsUtils.getPayloadRequest(event);
         const trace = AwsUtils.getTraceRequest(event);    
         const result = await UsuarioDb.obtenerUsuario(payload);
-        console.log("result -> ", result);
         
         return result;
     }
@@ -17,16 +16,14 @@ class UsuariosService {
         const payload = AwsUtils.getPayloadRequest(event);
         const trace = AwsUtils.getTraceRequest(event);    
         const result = await UsuarioDb.crearUsuario(payload);
-        console.log("result -> ", result);
-        
+             
         return result;
     }
 
     static async actualizarUsuario(event) {
         const payload = AwsUtils.getPayloadRequest(event);
         const trace = AwsUtils.getTraceRequest(event);    
-        const result = await UsuarioDb.actualizarUsuario(payload);
-        console.log("result -> ", result);
+        const result = await UsuarioDb.actualizarUsuario(payload);       
         
         return result;
     }
@@ -35,7 +32,6 @@ class UsuariosService {
         const payload = AwsUtils.getPayloadRequest(event);
         const trace = AwsUtils.getTraceRequest(event);    
         const result = await UsuarioDb.eliminarUsuario(payload);
-        console.log("result -> ", result);
         
         return result;
     }
