@@ -9,11 +9,6 @@ const dbconfig = {
   database: process.env.DB_DATABASE,
 };
 
-console.log(dbconfig);
-
-
-
-
 class DBCloudConnection extends MySqlConnection {
   static async getPool() {
     if (!poolConnection) {
