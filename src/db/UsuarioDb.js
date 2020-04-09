@@ -121,6 +121,40 @@ class UsuarioDb {
             }
           }
     }
+
+    static async eliminarUsuario(payload) {
+      let connection;        
+        const source = {
+          numeroDocumento: payload.numeroDocumento,            
+        };
+        const target = {
+            message: "Usuario eliminado correctamente!",
+        }
+        try {
+            const query = QueryConstants.ELIMINAR_USUARIO;
+            connection = await DBCloudConnection.getConnection();
+            const result = await DBCloudConnection.executeSQLStatement({
+              connection: connection,
+              statement: query,
+              bindParams: source,
+              target: target,
+            });
+
+            console.log("result -> ", result);
+            
+            return result;
+          } catch (error) {
+            throw new BusinessError({
+              code: error.code,
+              httpCode: error.httpCode,
+              messages: error.messages,
+            });
+          } finally {
+            if (connection) {
+              await DBCloudConnection.releaseConnection(connection);
+            }
+          }
+    }
 }
 
 module.exports = UsuarioDb;

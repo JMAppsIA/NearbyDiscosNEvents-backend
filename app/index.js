@@ -45,6 +45,15 @@ app.post("/usuario/actualizar", async (request, response, next) => {
  
 });
 
+app.post("/usuario/eliminar", async (request, response, next) => {
+
+    
+   const deleteuser = await UsuariosController.eliminarUsuario(request);
+   response.setHeader('Content-Type', 'application/json');     
+   response.end(JSON.stringify(deleteuser));    
+ 
+});
+
  app.put("/", (request, response, next) => {
     response.end("GET REQUEST");
  });

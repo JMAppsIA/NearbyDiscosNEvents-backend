@@ -43,6 +43,13 @@ class UsuariosValidator {
     return schema;
   }
 
+  static validateDeleteUser(){
+    const schema = Joi.object().keys({
+      numeroDocumento: Joi.string().required(),      
+    });
+    return schema;
+  }
+
 }
 
 module.exports = UsuariosValidator;
