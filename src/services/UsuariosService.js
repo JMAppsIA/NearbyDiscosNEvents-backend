@@ -30,6 +30,15 @@ class UsuariosService {
         
         return result;
     }
+
+    static async eliminarUsuario(event) {
+        const payload = AwsUtils.getPayloadRequest(event);
+        const trace = AwsUtils.getTraceRequest(event);    
+        const result = await UsuarioDb.eliminarUsuario(payload);
+        console.log("result -> ", result);
+        
+        return result;
+    }
     
 }
 

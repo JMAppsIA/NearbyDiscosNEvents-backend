@@ -36,7 +36,18 @@ class UsuariosController {
         LoggerUtils.error(error);
         return AwsUtils.buildErrorResponse(event, error);
       }
-  }    
+    }
+    
+    static async eliminarUsuario(event){
+      try {
+        await AppValidator.validateRequest(event, UsuariosValidator.validateDeleteUser());
+        const result = await UsuariosService.eliminarUsuario(event);
+        return AwsUtils.buildResponse(event, result);
+      } catch (error) {
+        LoggerUtils.error(error);
+        return AwsUtils.buildErrorResponse(event, error);
+      }
+    }
 
 }
 
