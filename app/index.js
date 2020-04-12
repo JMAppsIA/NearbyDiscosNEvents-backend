@@ -27,6 +27,15 @@
   
  });
 
+ app.post("/usuario/login", async (request, response, next) => {
+
+    
+   const loginuser = await UsuariosController.logueaUsuario(request);
+   response.setHeader('Content-Type', 'application/json');     
+   response.end(JSON.stringify(loginuser));    
+ 
+}); 
+
  app.post("/usuario/crear", async (request, response, next) => {
 
     

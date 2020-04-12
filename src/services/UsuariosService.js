@@ -20,6 +20,14 @@ class UsuariosService {
         return result;
     }
 
+    static async logueaUsuario(event) {
+        const payload = AwsUtils.getPayloadRequest(event);
+        const trace = AwsUtils.getTraceRequest(event);    
+        const result = await UsuarioDb.logueaUsuario(payload);
+             
+        return result;
+    }
+
     static async actualizarUsuario(event) {
         const payload = AwsUtils.getPayloadRequest(event);
         const trace = AwsUtils.getTraceRequest(event);    

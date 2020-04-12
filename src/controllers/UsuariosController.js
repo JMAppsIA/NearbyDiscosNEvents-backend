@@ -15,6 +15,17 @@ class UsuariosController {
           return AwsUtils.buildErrorResponse(event, error);
         }
       }
+
+    static async logueaUsuario(event) {
+      try {
+        await AppValidator.validateRequest(event, UsuariosValidator.validateLoginUser());
+        const result = await UsuariosService.logueaUsuario(event);
+        return AwsUtils.buildResponse(event, result);
+      } catch (error) {
+        LoggerUtils.error(error);
+        return AwsUtils.buildErrorResponse(event, error);
+      }
+    }
     
     static async crearUsuario(event) {
         try {
