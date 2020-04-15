@@ -18,12 +18,15 @@ class UsuariosController {
 
     static async logueaUsuario(event) {
       try {
+        console.log("event", event);
         await AppValidator.validateRequest(event, UsuariosValidator.validateLoginUser());
+        
+        
         const result = await UsuariosService.logueaUsuario(event);
         return AwsUtils.buildResponse(event, result);
       } catch (error) {
-        LoggerUtils.error(error);
-        return AwsUtils.buildErrorResponse(event, error);
+         LoggerUtils.error(error);
+         return AwsUtils.buildErrorResponse(event, error);
       }
     }
     
@@ -53,6 +56,17 @@ class UsuariosController {
       try {
         await AppValidator.validateRequest(event, UsuariosValidator.validateDeleteUser());
         const result = await UsuariosService.eliminarUsuario(event);
+        return AwsUtils.buildResponse(event, result);
+      } catch (error) {
+        LoggerUtils.error(error);
+        return AwsUtils.buildErrorResponse(event, error);
+      }
+    }
+
+    static async cambiarEstadoUsuario(event) {
+      try {
+        await AppValidator.validateRequest(event, UsuariosValidator.validateChangeUserStatus());
+        const result = await UsuariosService.cambiarEstadoUsuario(event);
         return AwsUtils.buildResponse(event, result);
       } catch (error) {
         LoggerUtils.error(error);
