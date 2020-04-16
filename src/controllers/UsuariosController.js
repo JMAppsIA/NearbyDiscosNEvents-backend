@@ -8,6 +8,7 @@ class UsuariosController {
     static async obtenerUsuario(event) {
         try {
           await AppValidator.validateRequest(event, UsuariosValidator.validateObtainUser());
+
           const result = await UsuariosService.obtenerUsuario(event);
           return AwsUtils.buildResponse(event, result);
         } catch (error) {
@@ -18,7 +19,6 @@ class UsuariosController {
 
     static async logueaUsuario(event) {
       try {
-        console.log("event", event);
         await AppValidator.validateRequest(event, UsuariosValidator.validateLoginUser());
         
         

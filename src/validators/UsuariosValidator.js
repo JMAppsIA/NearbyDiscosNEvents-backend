@@ -36,7 +36,7 @@ class UsuariosValidator {
       nomUsuario: Joi.string().required(),
       passUsuario: Joi.string().required(),
       email: Joi.string().required(),
-      origen: Joi.string().required(),       
+      origen: Joi.required(),       
     });
     return schema;
   }

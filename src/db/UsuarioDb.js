@@ -40,25 +40,36 @@ class UsuarioDb {
           message: null
         };
         try {
-            const query = QueryConstants.FUNCIONES_USUARIO;
-            connection = await DBCloudConnection.getConnection();
-            const result = await DBCloudConnection.executeSQLStatement({
-              connection: connection,
-              statement: query,
-              bindParams: source
-            });
-            
-            if(result.affectedRows == 1) {
-                response.status = true;
-                response.message = "Se creo el usuario";                               
-            } else {
-                response.httpCode = HttpConstants.INTERNAL_SERVER_ERROR_STATUS.code;
-                response.status = true;
-                response.message = "Se creo el usuario";
-                target.message = "No se pudo crear el usuario";
+
+          if(payload.key != process.env.API_KEY){ 
+
+            response.httpCode = HttpConstants.BAD_REQUEST_STATUS.code;
+            response.status = false;
+            response.message = "Campo Key es invalido";
+    
+          } else {
+
+              const query = QueryConstants.FUNCIONES_USUARIO;
+              connection = await DBCloudConnection.getConnection();
+              const result = await DBCloudConnection.executeSQLStatement({
+                connection: connection,
+                statement: query,
+                bindParams: source
+              });
+              
+              if(result.affectedRows == 1) {
+                  response.httpCode = HttpConstants.OK_STATUS.code;
+                  response.status = true;
+                  response.message = "Se creo el usuario";                               
+              } else {
+                  response.httpCode = HttpConstants.INTERNAL_SERVER_ERROR_STATUS.code;
+                  response.status = true;
+                  response.message = "No se pudo crear el usuario";
+              }
+
             }
             
-            return target;
+            return response;
           } catch (error) {
             throw new BusinessError({
               code: error.code,
@@ -277,6 +288,14 @@ class UsuarioDb {
       };
 
         try {
+          if(payload.key != process.env.API_KEY){ 
+
+            response.httpCode = HttpConstants.BAD_REQUEST_STATUS.code;
+            response.status = false;
+            response.message = "Campo Key es invalido";
+    
+          } else {
+
             const query = QueryConstants.FUNCIONES_USUARIO;
             connection = await DBCloudConnection.getConnection();
             const result = await DBCloudConnection.executeSQLStatement({
@@ -288,6 +307,8 @@ class UsuarioDb {
             response.httpCode = HttpConstants.OK_STATUS.code;
             response.status = true;
             response.message = result;
+
+          }
             return response;
           } catch (error) {
             throw new BusinessError({
@@ -364,6 +385,16 @@ class UsuarioDb {
         };
         
         try {
+
+          
+          if(payload.key != process.env.API_KEY){ 
+
+            response.httpCode = HttpConstants.BAD_REQUEST_STATUS.code;
+            response.status = false;
+            response.message = "Campo Key es invalido";
+    
+          } else {
+
             const query = QueryConstants.FUNCIONES_USUARIO;
             connection = await DBCloudConnection.getConnection();
             const result = await DBCloudConnection.executeSQLStatement({
@@ -377,11 +408,13 @@ class UsuarioDb {
               response.httpCode = HttpConstants.OK_STATUS.code;
               response.status = true;
               response.message = "Se actualizo el usuario correctamente";
-          } else {
+            } else {
               response.httpCode = HttpConstants.OK_STATUS.code;
               response.status = false;              
               response.message = `Usuario con documento ${payload.numeroDocumento} no existe.`;
-          }
+            }
+
+        }
 
             return response;
           } catch (error) {
@@ -416,7 +449,7 @@ class UsuarioDb {
         idUsuario: 0, 
         passUsuario: "",       
         email: "",
-        origen: "", 
+        origen: 0, 
         estadoUsuario: 1,
       }
 
@@ -451,6 +484,15 @@ class UsuarioDb {
       };
 
         try {
+          
+          if(payload.key != process.env.API_KEY){ 
+
+            response.httpCode = HttpConstants.BAD_REQUEST_STATUS.code;
+            response.status = false;
+            response.message = "Campo Key es invalido";
+    
+          } else {
+
             const query = QueryConstants.FUNCIONES_USUARIO;
             connection = await DBCloudConnection.getConnection();
             const result = await DBCloudConnection.executeSQLStatement({
@@ -469,7 +511,8 @@ class UsuarioDb {
               response.status = true;
               response.message = `Usuario con id ${payload.idPersona} no existe.`;
             }
-            
+
+          }
             return response;
           } catch (error) {
             throw new BusinessError({
@@ -540,6 +583,15 @@ class UsuarioDb {
       };
 
       try {
+        
+        if(payload.key != process.env.API_KEY){ 
+
+          response.httpCode = HttpConstants.BAD_REQUEST_STATUS.code;
+          response.status = false;
+          response.message = "Campo Key es invalido";
+  
+        } else {
+
           const query = QueryConstants.FUNCIONES_USUARIO;
           connection = await DBCloudConnection.getConnection();
           const result = await DBCloudConnection.executeSQLStatement({
@@ -551,15 +603,16 @@ class UsuarioDb {
 
           if(result.affectedRows >= 1) {
             response.httpCode = HttpConstants.OK_STATUS.code;
-              response.status = true;
-              response.message = `Estado cambiado correctamente`;                                 
-        } else {
-          response.httpCode = HttpConstants.OK_STATUS.code;
-          response.status = true;
-          response.message = `No se pudo cambiar el estado.`;
-        }
+            response.status = true;
+            response.message = `Estado cambiado correctamente`;                                 
+          } else {
+            response.httpCode = HttpConstants.OK_STATUS.code;
+            response.status = true;
+            response.message = `No se pudo cambiar el estado.`;
+          }
 
-          return target;
+        }
+          return response;
         } catch (error) {
           throw new BusinessError({
             code: error.code,
