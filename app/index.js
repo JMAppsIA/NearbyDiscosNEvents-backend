@@ -9,6 +9,7 @@
  const app = express();
  const UsuariosController = require('../src/controllers/UsuariosController');
  const DocumentoController = require('../src/controllers/DocumentoController');
+ const GeneroController = require('../src/controllers/GeneroController');
  const bodyParser = require('body-parser');
  
 
@@ -99,6 +100,17 @@ app.post("/documento/tipo/obtener", async (request, response, next) => {
  
 });
 
+app.post("/genero/tipo/obtener", async (request, response, next) => {
+
+    
+   const typegenre = await GeneroController.obtenerTipoGenero(request.body);
+   response.setHeader('Content-Type', 'application/json');
+   if(typegenre.error) {
+      response.status(typegenre.error.httpCode);
+   } else{response.status(typegenre.httpCode);}        
+   response.send(JSON.stringify(typegenre));    
+ 
+});
 
  /**
   * START WEBSERVICE
