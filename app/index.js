@@ -10,6 +10,7 @@
  const UsuariosController = require('../src/controllers/UsuariosController');
  const DocumentoController = require('../src/controllers/DocumentoController');
  const GeneroController = require('../src/controllers/GeneroController');
+ const LocalController = require ('../src/controllers/LocalController')
  const bodyParser = require('body-parser');
  
 
@@ -109,6 +110,16 @@ app.post("/genero/tipo/obtener", async (request, response, next) => {
       response.status(typegenre.error.httpCode);
    } else{response.status(typegenre.httpCode);}        
    response.send(JSON.stringify(typegenre));    
+ 
+});
+
+app.post("/locales/obtener", async (request, response, next) => {
+   const obteinlocal = await LocalController.obtenerLocales(request.body);
+   response.setHeader('Content-Type', 'application/json');
+   if(obteinlocal.error) {
+      response.status(obteinlocal.error.httpCode);
+   } else{response.status(obteinlocal.httpCode);}        
+   response.send(JSON.stringify(obteinlocal));    
  
 });
 

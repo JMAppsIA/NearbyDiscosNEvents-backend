@@ -7,5 +7,9 @@ module.exports = {
         :nomUsuario, :passUsuario, :email,
         :origen, :estadoUsuario);`,
         OBTENER_TIPO_DOCUMENTO: `SELECT * FROM tipo_doc`,
-        OBTENER_TIPO_GENERO: `SELECT * FROM tipo_genero`
+        OBTENER_TIPO_GENERO: `SELECT * FROM tipo_genero`,
+    FUNCIONES_LOCAL: `CALL SP_LOCAL_GLOBAL(:accion, :idLocal,  :nombreLocal, :imagenLocal,
+    :precioLocal, :latitudLocal, :longitudLocal,
+    :descripcionLocal, :telefonoLocal, :direccionLocal,
+    :estadoLocal, :rankingLocal);`
 };

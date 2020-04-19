@@ -170,8 +170,6 @@ class UsuarioDb {
         response.status = false;
         response.message = "Campo Key es invalido";
 
-        return response;
-
       } else {
 
         const query = QueryConstants.FUNCIONES_USUARIO;
@@ -182,24 +180,30 @@ class UsuarioDb {
           bindParams: source        
         });
     
-        console.log("result ", result[0]);
-        
+        console.log("result ",result[0][0]);
   
-        if(result[0][0].statudID == 7) {
-          response.httpCode = 200;
-          response.status = true;
-          response.message = "El usuario se encuentra inactivo";
-          return response;
-        } else {
-          response.httpCode = 200;
-          response.status = true;
-          response.message = result[0];
-          return response;
-        }
-        
+        if(result[0][0]) {
 
+           if(result[0][0].statudID == 7) {
+              response.httpCode = 200;
+              response.status = true;
+              response.message = "El usuario se encuentra inactivo";
+            
+            } else {
+              response.httpCode = 200;
+              response.status = true;
+              response.message = result[0];
+              
+            }
+        } else {
+
+          response.httpCode = HttpConstants.OK_STATUS.code;
+          response.status = true;
+          response.message = [target];
+        }         
       }
 
+      return response;
     } catch (error) {
       throw new BusinessError({
         code: error.code,
