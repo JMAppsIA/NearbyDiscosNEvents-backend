@@ -81,9 +81,10 @@ class LocalDb {
             });            
             response.httpCode = HttpConstants.OK_STATUS.code;
             response.status = true;
-            response.message = result;
+            response.message = result[0];
 
           }
+          
             return response;
           } catch (error) {
             throw new BusinessError({
