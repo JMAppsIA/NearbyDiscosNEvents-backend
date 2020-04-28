@@ -12,6 +12,8 @@ class UsuarioDb {
         const fullName = payload.primerNombre.concat(" ").concat(payload.segudoNombre).concat(" ").concat(payload.primerApellido).concat(" ").concat(payload.segundoApellido);
         // const pwdStr = payload.passUsuario;
         // const password = CryptoJS.SHA384(pwdStr);
+        const pwd = CryptographyUtils.encryptPassword(payload.passUsuario);
+       
         const source = {
           accion: "registrar",
           idPersona: 0,
@@ -29,10 +31,10 @@ class UsuarioDb {
           genero: payload.genero,
           idUsuario: 0,
           nomUsuario: payload.nomUsuario,
-          passUsuario: payload.passUsuario,
+          passUsuario: pwd,
           email: payload.email,
           origen: payload.origen, 
-          estadoUsuario: 1,
+          estadoUsuario: 6,
         };
         const response = {
           httpCode:200,
@@ -85,8 +87,9 @@ class UsuarioDb {
 
     static async logueaUsuario(payload) {
       let connection;
-      //const password = CryptographyUtils.encryptAES(process.env.SHA_KEY, `${payload.passUsuario}`);
-      const password = CryptoJS.SHA384(payload.passUsuario);
+      // const password = CryptographyUtils.encryptAES(process.env.SHA_KEY, `${payload.passUsuario}`);
+      // const password = CryptoJS.SHA384(payload.passUsuario);
+      const pwd = CryptographyUtils.encryptPassword(payload.passUsuario);
       
       
       const request = {
@@ -109,7 +112,7 @@ class UsuarioDb {
         passUsuario: "",       
         email: "",
         origen: 0, 
-        estadoUsuario: 1,
+        estadoUsuario: 6,
       }
 
 
@@ -131,7 +134,7 @@ class UsuarioDb {
         genero: request.genero,
         idUsuario: request.idUsuario,
         nomUsuario: payload.nomUsuario,
-        passUsuario: payload.passUsuario,
+        passUsuario: pwd,
         email: request.email,
         origen: request.origen, 
         estadoUsuario: request.estadoUsuario,

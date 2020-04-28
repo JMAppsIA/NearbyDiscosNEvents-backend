@@ -81,6 +81,9 @@ class LocalDb {
             });            
             response.httpCode = HttpConstants.OK_STATUS.code;
             response.status = true;
+            console.log("result", result[0]);
+            console.log("result[0][0]", result[0][0]);
+            
             response.message = result[0];
 
           }
