@@ -12,7 +12,7 @@ class GeneroController {
           return AwsUtils.buildResponse(event, result);
         } catch (error) {
           LoggerUtils.error(error);
-          return AwsUtils.buildErrorResponse(event, error);
+          return AwsUtils.buildErrorResponse(event, error); //gg
         }
       }
 
