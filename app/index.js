@@ -123,6 +123,15 @@ app.post("/locales/obtener", async (request, response, next) => {
  
 });
 
+app.post("/category/list", async (request, response, next) => {
+   const listCategory = await LocalController.obtenerCategorias(request.body);
+   response.setHeader('Content-Type', 'application/json');
+   if(listCategory.error) {
+      response.status(listCategory.error.httpCode);
+   } else{response.status(200);}        
+   response.send(JSON.stringify(listCategory));  
+})
+
  /**
   * START WEBSERVICE
   */

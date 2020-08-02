@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/JMAppsIA/NearbyDiscosNEvents-Backend.git"
   },
-  "author": "Jorge Herrera & Marlong Cubas",
+  "author": "Jorge Herrera",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JMAppsIA/NearbyDiscosNEvents-Backend/issues"

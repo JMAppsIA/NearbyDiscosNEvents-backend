@@ -1,5 +1,6 @@
 const QueryConstants = require('../constants/QueryConstants');
 const DBCloudConnection = require('../db/connection/DBCloudConnection');
+const MSSQLConnection = require('../db/connection/MSSQLConnection');
 const {BusinessError} = require('lib-commons/models')
 const { CryptographyUtils } = require('lib-commons/helpers');
 const CryptoJS = require('crypto-js');
@@ -101,6 +102,44 @@ class LocalDb {
             }
           }
     }
+
+    static async obtenerCategorias(payload) {
+      let connection;
+      
+      const source = {
+          idPersona: payload.idPersona,                   
+      };
+
+      const target = {
+          nombreCompleto: null,
+          codigoExterno: null       
+      };
+
+      try {
+          let codigoExt='';
+          const query = QueryConstants.OBTENER_CATEGORIA;
+          connection = await MSSQLConnection.getConnection();
+          let result = await MSSQLConnection.executeSQLStatement({
+            connection: connection,
+            statement: query,
+            bindParams: source,
+            target: target,
+          }); 
+          codigoExt = CryptographyUtils.encryptAES(process.env.SHA_KEY,`${result.codigoExterno}`);          
+          result[0][0].codigoExterno = codigoExt;
+          return result;
+        } catch (error) {
+          throw new BusinessError({
+            code: error.code,
+            httpCode: error.httpCode,
+            messages: error.messages,
+          });
+        } finally {
+          if (connection) {
+            await MSSQLConnection.releaseConnection(connection);
+          }
+        }
+  }
 
 }
 module.exports = LocalDb;

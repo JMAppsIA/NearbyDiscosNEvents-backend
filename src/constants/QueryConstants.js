@@ -11,5 +11,6 @@ module.exports = {
     FUNCIONES_LOCAL: `CALL SP_LOCAL_GLOBAL(:accion, :idLocal,  :nombreLocal, :imagenLocal,
     :precioLocal, :latitudLocal, :longitudLocal,
     :descripcionLocal, :telefonoLocal, :direccionLocal,
-    :estadoLocal, :rankingLocal);`
+    :estadoLocal, :rankingLocal);`,
+    OBTENER_CATEGORIA: `SELECT nombreCompleto,codigoExterno FROM persona where idPersona=:idPersona;`
 };
