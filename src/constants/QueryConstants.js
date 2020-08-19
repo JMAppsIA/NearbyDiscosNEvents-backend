@@ -12,5 +12,5 @@ module.exports = {
     :precioLocal, :latitudLocal, :longitudLocal,
     :descripcionLocal, :telefonoLocal, :direccionLocal,
     :estadoLocal, :rankingLocal);`,
-    OBTENER_CATEGORIA: `SELECT nombreCompleto,codigoExterno FROM persona where idPersona=:idPersona;`
+    OBTENER_CATEGORIA: `select idCompra,descripcionCompra from compra where codigoExterno=:codigoExterno;`
 };

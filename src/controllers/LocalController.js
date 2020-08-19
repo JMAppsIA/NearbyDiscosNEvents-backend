@@ -17,6 +17,19 @@ class LocalController {
         }
       }
 
+      // static async obtenerCategorias(event) {
+      //   try {
+      //     //await AppValidator.validateRequest(event, LocalValidator.validateObtainLocal());
+
+      //     const result = await LocalService.obtenerCategorias(event);
+      //     console.log("CommonUtils.buildResponse(event, result) -> ", CommonUtils.buildResponse(event, result));
+      //     return CommonUtils.buildResponse(event, result);
+      //   } catch (error) {
+      //     LoggerUtils.error(error);
+      //     return CommonUtils.buildErrorResponse(event, error);
+      //   }
+      // }
+
       static async obtenerCategorias(event) {
         try {
           //await AppValidator.validateRequest(event, LocalValidator.validateObtainLocal());

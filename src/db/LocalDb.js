@@ -105,18 +105,18 @@ class LocalDb {
 
     static async obtenerCategorias(payload) {
       let connection;
-      
+      let codigoExt = Number(CryptographyUtils.decryptAES(process.env.SHA_KEY,`${payload.codigoExterno}`));
       const source = {
-          idPersona: payload.idPersona,                   
+          codigoExterno: codigoExt,                   
       };
 
       const target = {
-          nombreCompleto: null,
-          codigoExterno: null       
+          idCompra: null,
+          descripcionCompra: null       
       };
 
       try {
-          let codigoExt='';
+          
           const query = QueryConstants.OBTENER_CATEGORIA;
           connection = await MSSQLConnection.getConnection();
           let result = await MSSQLConnection.executeSQLStatement({
@@ -125,8 +125,8 @@ class LocalDb {
             bindParams: source,
             target: target,
           }); 
-          codigoExt = CryptographyUtils.encryptAES(process.env.SHA_KEY,`${result.codigoExterno}`);          
-          result[0][0].codigoExterno = codigoExt;
+          //codigoExt = CryptographyUtils.encryptAES(process.env.SHA_KEY,`${result.codigoExterno}`);          
+          //result[0][0].codigoExterno = codigoExt;
           return result;
         } catch (error) {
           throw new BusinessError({
