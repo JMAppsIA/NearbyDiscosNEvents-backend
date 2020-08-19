@@ -30,9 +30,7 @@ class MSSQLConnection extends MSSQLServerConnection {
 
   static async executeSQL(sql, bindParams, target) {
     await this._createPool();
-    const result = await MSSQLServerConnection.executeSQL(sql, bindParams, target, poolConnection);
-    // TODO: Se esta trabajando en una mejor form de cerrar el pool de conexiones
-    // await MySqlDatabase.closePool(poolConnection);
+    const result = await MSSQLServerConnection.executeSQL(sql, bindParams, target, poolConnection);    
     return result;
   }
 }
